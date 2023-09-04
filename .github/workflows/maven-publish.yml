@@ -36,4 +36,9 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
         
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag invoicemgrtestscheduler:$(date +%s)
+      run: docker build . --file Dockerfile --tag invoicemgrtestscheduler:1.0.0-SNAPSHOT
+      env:
+        # github.repository as <account>/<repo>
+        IMAGE_NAME: ${{ github.repository }}
+        DOCKER_PASSWORD: Gunda*1983
+        DOCKER_ACCOUNT: x00159358
