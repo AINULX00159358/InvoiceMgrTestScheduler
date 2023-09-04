@@ -37,8 +37,12 @@ jobs:
         
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag invoicemgrtestscheduler:1.0.0-SNAPSHOT
+
+    - name: docker login
+      run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
       env:
-        # github.repository as <account>/<repo>
-        IMAGE_NAME: ${{ github.repository }}
         DOCKER_PASSWORD: Gunda*1983
-        DOCKER_ACCOUNT: x00159358
+        DOCKER_USERNAME: x00159358
+
+    - name: docker push
+      run: docker push docker.io/library/invoicemgrtestscheduler:1.0.0-SNAPSHOT
