@@ -34,15 +34,15 @@ jobs:
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
-        
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag invoicemgrtestscheduler:1.0.0-SNAPSHOT
 
     - name: docker login
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
       env:
         DOCKER_PASSWORD: Gunda*1983
         DOCKER_USERNAME: x00159358
+        
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag x00159358/invoicemgrtestscheduler:1.0.0-SNAPSHOT
 
     - name: docker push
       run: docker push docker.io/library/invoicemgrtestscheduler:1.0.0-SNAPSHOT
