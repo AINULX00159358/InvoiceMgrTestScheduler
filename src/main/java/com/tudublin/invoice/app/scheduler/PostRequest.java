@@ -5,6 +5,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.concurrent.*;
 
 public class PostRequest {
@@ -13,7 +16,7 @@ public class PostRequest {
             .version(HttpClient.Version.HTTP_1_1)
             .connectTimeout(Duration.ofSeconds(10))
             .build();
-    private static final String ENDPOINT = "https://invoicemgr.northeurope-1.eventgrid.azure.net/api/events?overload=cloudEvent&api-version=2018-01-01";
+    private static final String ENDPOINT = Optional.ofNullable(System.getenv("ENDPOINT")).orElse("https://invoicemgr.northeurope-1.eventgrid.azure.net/api/events?overload=cloudEvent&api-version=2018-01-01");
     private static final String CID = "uWKbOUKZ/qoFGnHFiEugJCAqzRcr8R+pWRo7szJibTE=";
     private static final String CONTENT_TYPE = "application/cloudevents-batch+json;charset=utf-8";
 
