@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: InvoiceMgr-Test-Scheduler
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+       —name: InvoiceMgrTestScheduler
+          image: x00159358/invoicemgrtestscheduler:1.0.0-SNAPSHOT
+          env:
+          - name: ENDPOINT
+            value: "https://invoicemgr.northeurope-1.eventgrid.azure.net/api/events?overload=cloudEvent&api-version=2018-01-01"
+          - name: CID
+            value: "uWKbOUKZ/qoFGnHFiEugJCAqzRcr8R+pWRo7szJibTE="
+          - name: TPS
+            value: 30
