@@ -17,7 +17,7 @@ public class PostRequest {
             .connectTimeout(Duration.ofSeconds(10))
             .build();
     private static final String ENDPOINT = Optional.ofNullable(System.getenv("ENDPOINT")).orElse("https://invoicemgr.northeurope-1.eventgrid.azure.net/api/events?overload=cloudEvent&api-version=2018-01-01");
-    private static final String CID = "uWKbOUKZ/qoFGnHFiEugJCAqzRcr8R+pWRo7szJibTE=";
+    private static final String CID = Optional.ofNullable(System.getenv("CID")).orElse("uWKbOUKZ/qoFGnHFiEugJCAqzRcr8R+pWRo7szJibTE=");
     private static final String CONTENT_TYPE = "application/cloudevents-batch+json;charset=utf-8";
 
     public static void post(String id){
