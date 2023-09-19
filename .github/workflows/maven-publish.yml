@@ -4,10 +4,26 @@
 name: Maven Package
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+   workflow_dispatch:
+     # Inputs the workflow accepts.
+     inputs:
+       dockerUsername:
+         # Friendly description to be shown in the UI instead of 'name'
+         description: 'docker user name'
+         # Default value if no value is explicitly provided
+         default: 'x00159358'
+         # Input has to be provided for the workflow to run
+         required: true
+         # The data type of the input
+         type: string
+
+       dockerPassword:
+         # Friendly description to be shown in the UI instead of 'name'
+         description: 'docker Password'
+         # Input has to be provided for the workflow to run
+         required: true
+         # The data type of the input
+         type: string
 
 jobs:
   build:
@@ -33,8 +49,8 @@ jobs:
     - name: docker login
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
       env:
-        DOCKER_PASSWORD: Gunda*1983
-        DOCKER_USERNAME: x00159358
+        DOCKER_PASSWORD: ${{dockerPassword}}
+        DOCKER_USERNAME: ${{dockerUsername}]
         
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag x00159358/invoicemgrtestscheduler:1.0.0-SNAPSHOT
