@@ -17,8 +17,8 @@ public class App
                                                     Executors.newScheduledThreadPool(1000);
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
     private static final ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
-    private static final int TPS = Optional.ofNullable(System.getenv("tps")).map(Integer::parseInt).orElse(30);
-
+    private static final int TPS = Optional.ofNullable(System.getenv("TPS")).map(Integer::parseInt).orElse(30);
+    
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(()->{
             try {
