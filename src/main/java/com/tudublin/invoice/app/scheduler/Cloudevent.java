@@ -40,6 +40,7 @@ public class Cloudevent {
     }
 
     public static String createData() {
+        String nowAsISO = df.format(new Date());
         String data =  "{\"custID\":\"CUST-ID\", \"amount\": AMOUNT, \"date\": \"21/09/2323\"}";
         return data.replace("EVENT-ID", uuid.toString())
         .replace("CLIENT-ID", "client-"+ System.currentTimeMillis())
