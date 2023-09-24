@@ -2,21 +2,12 @@
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
 name: Maven Package
-
 on:
-   workflow_dispatch:
-     # Inputs the workflow accepts.
-     inputs:
-       dockerUsername:
-         # Friendly description to be shown in the UI instead of 'name'
-         description: 'docker user name'
-         # Default value if no value is explicitly provided
-         default: 'x00159358'
-         # Input has to be provided for the workflow to run
-         required: true
-         # The data type of the input
-         type: string
-
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
 jobs:
   build:
 
