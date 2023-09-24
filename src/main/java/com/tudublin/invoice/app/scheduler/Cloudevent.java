@@ -17,7 +17,7 @@ public class Cloudevent {
         df.setTimeZone(tz);
     }
 
-    public static String createJson() {
+    public static String createCEAsJson() {
         String nowAsISO = df.format(new Date());
         String json = "[\n" +
                 "  {\n" +
@@ -37,5 +37,14 @@ public class Cloudevent {
                 .replace("CUST-ID", uuid.toString())
                 .replace("AMOUNT", ""+ThreadLocalRandom.current().nextInt(10000, 200000))
                 .replace("TIME", nowAsISO);
+    }
+
+    public static String createData() {
+        String data =  "{\"custID\":\"CUST-ID\", \"amount\": AMOUNT, \"date\": \"21/09/2323\"}";
+        return data.replace("EVENT-ID", uuid.toString())
+        .replace("CLIENT-ID", "client-"+ System.currentTimeMillis())
+        .replace("CUST-ID", uuid.toString())
+        .replace("AMOUNT", ""+ThreadLocalRandom.current().nextInt(10000, 200000))
+        .replace("TIME", nowAsISO);
     }
 }
