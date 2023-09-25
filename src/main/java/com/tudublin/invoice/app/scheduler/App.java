@@ -1,20 +1,16 @@
 package com.tudublin.invoice.app.scheduler;
 
-import java.util.Objects;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.UUID;
 import java.util.concurrent.*;
 
 
 /**
- * Hello world!
  *
  */
 public class App 
 {
-    private static final ScheduledExecutorService internalScheduler =
-                                                    Executors.newScheduledThreadPool(1000);
+    private static final ScheduledExecutorService internalScheduler = Executors.newScheduledThreadPool(1000);
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
     private static final ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
     private static final int TPS = Optional.ofNullable(System.getenv("TPS")).map(Integer::parseInt).orElse(30);
