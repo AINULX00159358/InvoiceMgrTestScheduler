@@ -1,20 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: InvoiceMgr-Test-Scheduler
+  name: invoicemgrtestscheduler
   labels:
-    purpose: demonstrate-envars
+    app: invoicemgrtestschedulerapp
 spec:
+  selector:
+    matchLabels:
+      app: invoicemgrtestschedulerapp
   replicas: 1
   template:
+    metadata:
+      labels:
+        app: invoicemgrtestschedulerapp
     spec:
       containers:
-      - name: InvoiceMgrTestScheduler
+      - name: invoicemgrtestscheduler
         image: x00159358/invoicemgrtestscheduler:1.0.0-SNAPSHOT
         env:
          - name: ENDPOINT
-           value: "https://invoicemgr.northeurope-1.eventgrid.azure.net/api/events?overload=cloudEvent&api-version=2018-01-01"
+           value: "http://broker-ingress.knative-eventing.svc.cluster.local/default/example-broker"
+#           value: "https://invoicemgr.northeurope-1.eventgrid.azure.net/api/events?overload=cloudEvent&api-version=2018-01-01"
          - name: CID
            value: "uWKbOUKZ/qoFGnHFiEugJCAqzRcr8R+pWRo7szJibTE="
          - name: TPS
-           value: "30"
+           value: "1"
