@@ -19,7 +19,7 @@ public class PostRequest {
     private static final List<String> postTypesSupported = Arrays.asList("JSON", "CLOUDEVENT"); 
     private static final String ENDPOINT = Optional.ofNullable(System.getenv("ENDPOINT")).orElse("https://invoicemgr.northeurope-1.eventgrid.azure.net/api/events?overload=cloudEvent&api-version=2018-01-01");
     private static final String CID = Optional.ofNullable(System.getenv("CID")).orElse("uWKbOUKZ/qoFGnHFiEugJCAqzRcr8R+pWRo7szJibTE=");
-    private static final String POST_TYPE = Optional.ofNullable("POST_TYPE").filter(x-> postTypesSupported.contains(x)).orElse("JSON");
+    private static final String POST_TYPE = Optional.ofNullable(System.getenv("POST_TYPE")).filter(x-> postTypesSupported.contains(x)).orElse("JSON");
 
     public static void post(String id){
         if (POST_TYPE.equalsIgnoreCase("JSON")) {
