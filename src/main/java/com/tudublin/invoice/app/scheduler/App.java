@@ -14,6 +14,7 @@ public class App
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
     private static final ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
     private static final int TPS = Optional.ofNullable(System.getenv("TPS")).map(Integer::parseInt).orElse(30);
+    private static final int PERIOD = Optional.ofNullable(System.getenv("PERIOD")).map(Integer::parseInt).orElse(1);
     
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(()->{
@@ -40,7 +41,7 @@ public class App
             }
             System.out.println("Added batch of 30");
         };
-        ScheduledFuture<?> scheduledFuture = scheduler.scheduleAtFixedRate(runnable,1, 1, TimeUnit.SECONDS);
+        ScheduledFuture<?> scheduledFuture = scheduler.scheduleAtFixedRate(runnable,1, PERIOD, TimeUnit.SECONDS);
        // executorservice.shutdownNow();
     }
 }
