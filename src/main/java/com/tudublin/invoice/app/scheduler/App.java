@@ -41,7 +41,8 @@ public class App
             }
             System.out.println("Added batch of 30");
         };
-        ScheduledFuture<?> scheduledFuture = scheduler.scheduleAtFixedRate(runnable,1, PERIOD, TimeUnit.SECONDS);
+        //ScheduledFuture<?> scheduledFuture = 
+        scheduler.scheduleAtFixedRate(runnable,1, PERIOD, TimeUnit.SECONDS);
        // executorservice.shutdownNow();
     }
 }
