@@ -2,7 +2,9 @@ package com.tudublin.invoice.app.scheduler;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.*;
+
 
 
 /**
@@ -30,9 +32,15 @@ public class App
             }
         }));
     }
+
+    
+
     public static void main( String[] args ) throws Exception {
         System.out.println( "executing App Scheduler with TPS "+ TPS );
 
+        if (! PostRequest.post("TEST")) {
+            System.exit(1);
+        }
         Runnable runnable = () -> {
             for (int y=0; y< TPS; y++){
                 final UUID uuid = UUID.randomUUID();

@@ -5,6 +5,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Optional;
 
@@ -18,27 +19,40 @@ public class PostRequest {
     private static final String CONTENT_TYPE = Optional.ofNullable(System.getenv("CONTENT_TYPE")).orElse(Defaults.CONTENT_TYPE);
     private static final String ENDPOINT = Optional.ofNullable(System.getenv("ENDPOINT")).orElse(Defaults.ENDPOINT);
     private static final String CID = Optional.ofNullable(System.getenv("CID")).orElse(Defaults.CID);
-  
-     public static void post(String id){
+     
+    private static volatile boolean firstTime = true;
+
+     public static boolean post(String id) {
+        String data = Cloudevent.createCEAsJson();
+       if ( firstTime ){
+            firstTime = false;
+            System.out.println("ENDPOINT "+ ENDPOINT);
+            System.out.println("CONTENT_TYPE "+ CONTENT_TYPE);
+            System.out.println("CID "+ CID);
+             System.out.println("DATA "+ data);
+             System.out.println("Posting data for id "+ id);
+
+       }
+
         try {
                 final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                         .uri(new URI(ENDPOINT))
-                        .POST(HttpRequest.BodyPublishers.ofString(Cloudevent.createData(), Charset.defaultCharset()));
-                final HttpRequest request = decorateHeader(requestBuilder, CONTENT_TYPE);
-                System.out.println("Posting data for id "+ id);
+                        .setHeader("Content-Type", CONTENT_TYPE)
+                        .setHeader("aeg-sas-key", CID)
+                        .POST(HttpRequest.BodyPublishers.ofString(data,StandardCharsets.UTF_8));
+                final HttpRequest request = requestBuilder.build();
+                
+                
                 final HttpResponse<String> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
                 System.out.println(Thread.currentThread().getName() + " ID ="+id+"   RESPONSE "+ response.statusCode()  );
+                return response.statusCode() /100 == 2;
             }catch (Exception exception){
                 exception.printStackTrace();
+                return false;
         }
     }
 
-    public static HttpRequest decorateHeader(final HttpRequest.Builder requestBuilder, String contentType){
-        requestBuilder.setHeader("Content-Type", contentType);
-        requestBuilder.setHeader("Ce-Specversion", "1.0");
-        requestBuilder.setHeader("aeg-sas-key", CID);
-        return requestBuilder.build();
-    }
+
 
 
     public static Runnable createRunnable(String id) {
