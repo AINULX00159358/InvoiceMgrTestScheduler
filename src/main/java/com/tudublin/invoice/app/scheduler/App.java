@@ -13,8 +13,8 @@ public class App
     private static final ScheduledExecutorService internalScheduler = Executors.newScheduledThreadPool(1000);
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
     private static final ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
-    private static final int TPS = Optional.ofNullable(System.getenv("TPS")).map(Integer::parseInt).orElse(30);
-    private static final int PERIOD = Optional.ofNullable(System.getenv("PERIOD")).map(Integer::parseInt).orElse(1);
+    private static final int TPS = Optional.ofNullable(System.getenv("TPS")).map(Integer::parseInt).orElse(Defaults.TPS);
+    private static final int PERIOD = Optional.ofNullable(System.getenv("PERIOD")).map(Integer::parseInt).orElse(Defaults.PERIOD);
     
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(()->{
