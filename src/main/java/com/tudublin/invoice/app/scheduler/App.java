@@ -2,7 +2,6 @@ package com.tudublin.invoice.app.scheduler;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.*;
 
 

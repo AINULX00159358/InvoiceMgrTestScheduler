@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Optional;
@@ -31,7 +30,6 @@ public class PostRequest {
             System.out.println("CID "+ CID);
              System.out.println("DATA "+ data);
              System.out.println("Posting data for id "+ id);
-
        }
 
         try {
@@ -42,7 +40,6 @@ public class PostRequest {
                         .POST(HttpRequest.BodyPublishers.ofString(data,StandardCharsets.UTF_8));
                 final HttpRequest request = requestBuilder.build();
                 
-                
                 final HttpResponse<String> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
                 System.out.println(Thread.currentThread().getName() + " ID ="+id+"   RESPONSE "+ response.statusCode()  );
                 return response.statusCode() /100 == 2;
@@ -52,11 +49,7 @@ public class PostRequest {
         }
     }
 
-
-
-
     public static Runnable createRunnable(String id) {
         return ()-> PostRequest.post(id);
     }
-
 }
